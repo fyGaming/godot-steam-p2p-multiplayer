@@ -22,9 +22,13 @@ func _physics_process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("jump"):
+		# 本地处理跳跃
+		player.do_jump = true
+		# 通知其他玩家
 		jump.rpc()
 
-@rpc("call_local")
+@rpc("call_local", "reliable")
 func jump():
-	if multiplayer.is_server():
+	# 只更新其他客户端的跳跃状态，本地已处理
+	if multiplayer.get_unique_id() != get_multiplayer_authority():
 		player.do_jump = true

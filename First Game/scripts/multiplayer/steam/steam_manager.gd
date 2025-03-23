@@ -1,7 +1,7 @@
 extends Node
 
 var is_owned: bool = false
-var steam_app_id: int = 480 # Test game app id
+var steam_app_id: int = 2400400 # Test game app id
 var steam_id: int = 0
 var steam_username: String = ""
 

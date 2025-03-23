@@ -8,8 +8,13 @@ var _hosted_lobby_id = 0
 const LOBBY_NAME = "BAD"
 const LOBBY_MODE = "CoOP"
 
-func  _ready():
+func _ready():
 	multiplayer_peer.lobby_created.connect(_on_lobby_created)
+	
+	# 优化网络设置以减少延迟
+	multiplayer_peer.transfer_channel = 0 # 使用低延迟通道
+	multiplayer_peer.transfer_mode = MultiplayerPeer.TRANSFER_MODE_UNRELIABLE
+	multiplayer_peer.set_target_peer(MultiplayerPeer.TARGET_PEER_BROADCAST)
 
 func become_host():
 	print("Starting host!")
